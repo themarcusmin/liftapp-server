@@ -1,1 +1,4 @@
 .env
+pri*key*.pem
+pub*key*.pem
+liftapp
