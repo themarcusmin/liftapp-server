@@ -1,11 +1,11 @@
 version: '3.9'
 name: go
 services:
-  goapi:
+  lift-app-server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: liftapp
+    container_name: lift-app-server
     working_dir: /target
     restart: unless-stopped
     ports:
