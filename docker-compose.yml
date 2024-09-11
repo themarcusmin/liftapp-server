@@ -1,0 +1,12 @@
+version: '3.9'
+name: go
+services:
+  goapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: liftapp
+    working_dir: /target
+    restart: unless-stopped
+    ports:
+      - '8000:8999'
