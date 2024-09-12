@@ -39,6 +39,12 @@ func main() {
 			fmt.Println(err)
 			return
 		}
+
+		// Populate DB tables
+		if err := migrate.PopulateTables(); err != nil {
+			fmt.Println(err)
+			return
+		}
 		// Manually set foreign key for MySQL and PostgreSQL
 		if err := migrate.SetPkFk(); err != nil {
 			fmt.Println(err)

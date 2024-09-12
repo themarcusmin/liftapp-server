@@ -3,6 +3,7 @@ package migrate
 
 import (
 	"fmt"
+	"os"
 
 	gconfig "liftapp/config"
 	gdatabase "liftapp/database"
@@ -18,6 +19,8 @@ type twoFABackup gmodel.TwoFABackup
 type tempEmail gmodel.TempEmail
 type user model.User
 type exercise model.Exercise
+type muscle model.Muscle
+type exerciseMuscle model.ExerciseMuscle
 
 // DropAllTables - careful! It will drop all the tables!
 func DropAllTables() error {
@@ -30,11 +33,13 @@ func DropAllTables() error {
 		&twoFA{},
 		&auth{},
 		&exercise{},
+		&muscle{},
+		&exerciseMuscle{},
 	); err != nil {
 		return err
 	}
 
-	fmt.Println("old tables are deleted!")
+	fmt.Println("app-level: old tables are deleted!")
 	return nil
 }
 
@@ -52,11 +57,33 @@ func StartMigration(configure gconfig.Configuration) error {
 		&tempEmail{},
 		&user{},
 		&exercise{},
+		&muscle{},
+		&exerciseMuscle{},
 	); err != nil {
 		return err
 	}
 
-	fmt.Println("new tables are  migrated successfully!")
+	fmt.Println("app-level: new tables are  migrated successfully!")
+	return nil
+}
+
+// PopulateTables
+// - Using insert queries from raw sql file
+func PopulateTables() error {
+	dir, err := os.Getwd()
+	buf, err := os.ReadFile(dir + "/app/database/raw/exerciseMuscle.sql")
+	if err != nil {
+		return err
+	}
+
+	sqlString := string(buf)
+	db := gdatabase.GetDB()
+	err = db.Exec(sqlString).Error
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("app-level: tables have been populated successfully!")
 	return nil
 }
 
