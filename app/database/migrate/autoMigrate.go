@@ -23,6 +23,8 @@ type muscle model.Muscle
 type exerciseMuscle model.ExerciseMuscle
 type program model.Program
 type programDay model.ProgramDay
+type workout model.Workout
+type exerciseWorkoutJunction model.ExerciseWorkoutJunction
 
 // DropAllTables - careful! It will drop all the tables!
 func DropAllTables() error {
@@ -39,6 +41,8 @@ func DropAllTables() error {
 		&exerciseMuscle{},
 		&program{},
 		&programDay{},
+		&workout{},
+		&exerciseWorkoutJunction{},
 	); err != nil {
 		return err
 	}
@@ -65,6 +69,8 @@ func StartMigration(configure gconfig.Configuration) error {
 		&exerciseMuscle{},
 		&program{},
 		&programDay{},
+		&workout{},
+		&exerciseWorkoutJunction{},
 	); err != nil {
 		return err
 	}
