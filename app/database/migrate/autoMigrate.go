@@ -27,6 +27,7 @@ type workout model.Workout
 type exerciseWorkoutJunction model.ExerciseWorkoutJunction
 type log model.Log
 type logEntry model.LogEntry
+type format model.Format
 
 // DropAllTables - careful! It will drop all the tables!
 func DropAllTables() error {
@@ -47,6 +48,7 @@ func DropAllTables() error {
 		&exerciseWorkoutJunction{},
 		&log{},
 		&logEntry{},
+		&format{},
 	); err != nil {
 		return err
 	}
@@ -77,6 +79,7 @@ func StartMigration(configure gconfig.Configuration) error {
 		&exerciseWorkoutJunction{},
 		&log{},
 		&logEntry{},
+		&format{},
 	); err != nil {
 		return err
 	}
