@@ -1,0 +1,18 @@
+package model
+
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
+
+type LogEntry struct {
+	gorm.Model
+	SetNumber  uint8     `json:"setNumber"`
+	Reps       uint8     `json:"reps"`
+	Weight     uint16    `json:"weight"`
+	Duration   uint16    `json:"duration"`
+	EventAt    time.Time `json:"eventAt"`
+	JunctionID uint
+	LogID      uint
+}

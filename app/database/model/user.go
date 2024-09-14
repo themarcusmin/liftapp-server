@@ -17,4 +17,5 @@ type User struct {
 	FirstName string         `json:"firstName,omitempty"`
 	LastName  string         `json:"lastName,omitempty"`
 	IDAuth    uint64         `json:"-"`
+	Logs      []Log          `gorm:"foreignkey:UserID;references:UserID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"logs,omitempty"`
 }
