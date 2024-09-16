@@ -114,6 +114,11 @@ func SetupRouter(configure *gconfig.Configuration) (*gin.Engine, error) {
 			rUsers.PUT("", controller.UpdateUser)  // Protected
 			// rUsers.PUT("/hobbies", controller.AddHobby) // Protected
 
+			// Log
+			rLogs := v1.Group("logs")
+			rLogs.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())
+			rLogs.POST("", controller.CreateLog) // Protected
+
 			// Test JWT
 			// rTestJWT := v1.Group("test-jwt")
 			// rTestJWT.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())
@@ -126,10 +131,6 @@ func SetupRouter(configure *gconfig.Configuration) (*gin.Engine, error) {
 			// }
 			// rTestJWT.GET("", controller.AccessResource) // Protected
 		}
-
-		// QueryString demo
-		// rQuery := v1.Group("query")
-		// rQuery.GET("*q", controller.QueryString)
 	}
 
 	return r, nil
