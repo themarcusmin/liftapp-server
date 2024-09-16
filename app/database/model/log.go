@@ -8,8 +8,8 @@ import (
 
 type Log struct {
 	gorm.Model
-	EventDate  time.Time
-	UserID     uint
-	WorkoutID  *uint
-	LogEntries []LogEntry `gorm:"foreignKey:LogID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"logEntries"`
+	EventAt      time.Time `json:"eventAt"`
+	UserID       uint
+	ProgramDayID *uint
+	LogExercise  []LogExercise `gorm:"foreignKey:LogID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"logExercises"`
 }

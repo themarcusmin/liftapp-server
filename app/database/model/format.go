@@ -2,5 +2,5 @@ package model
 
 type Format struct {
 	ID          uint   `gorm:"primaryKey"`
-	DisplayName string `json:"displayName"`
+	DisplayName string `gorm:"not null;unique" json:"displayName"`
 }

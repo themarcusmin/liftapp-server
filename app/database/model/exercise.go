@@ -6,7 +6,9 @@ import (
 
 type Exercise struct {
 	gorm.Model
-	DisplayName string    `json:"displayName"`
-	Muscle      []Muscle  `gorm:"many2many:exercise_muscles" json:"muscles,omitempty"`
-	Workout     []Workout `gorm:"many2many:exercise_workout_junctions" json:"workouts,omitempty"`
+	DisplayName     string            `json:"displayName"`
+	ProgramExercise []ProgramExercise `gorm:"foreignKey:ExerciseID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"programExercises"`
+	LogExercise     []LogExercise     `gorm:"foreignKey:ExerciseID;references:ID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE" json:"logExercises"`
+	FormatID        uint
+	Format          Format `gorm:"foreignKey:FormatID"`
 }

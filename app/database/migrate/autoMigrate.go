@@ -19,15 +19,16 @@ type twoFABackup gmodel.TwoFABackup
 type tempEmail gmodel.TempEmail
 type user model.User
 type exercise model.Exercise
+type format model.Format
 type muscle model.Muscle
 type exerciseMuscle model.ExerciseMuscle
 type program model.Program
 type programDay model.ProgramDay
-type workout model.Workout
-type exerciseWorkoutJunction model.ExerciseWorkoutJunction
+type programExercise model.ProgramExercise
+type programEntry model.ProgramEntry
 type log model.Log
+type logExercise model.LogExercise
 type logEntry model.LogEntry
-type format model.Format
 
 // DropAllTables - careful! It will drop all the tables!
 func DropAllTables() error {
@@ -44,9 +45,10 @@ func DropAllTables() error {
 		&exerciseMuscle{},
 		&program{},
 		&programDay{},
-		&workout{},
-		&exerciseWorkoutJunction{},
+		&programExercise{},
+		&programEntry{},
 		&log{},
+		&logExercise{},
 		&logEntry{},
 		&format{},
 	); err != nil {
@@ -75,9 +77,10 @@ func StartMigration(configure gconfig.Configuration) error {
 		&exerciseMuscle{},
 		&program{},
 		&programDay{},
-		&workout{},
-		&exerciseWorkoutJunction{},
+		&programExercise{},
+		&programEntry{},
 		&log{},
+		&logExercise{},
 		&logEntry{},
 		&format{},
 	); err != nil {
@@ -92,7 +95,7 @@ func StartMigration(configure gconfig.Configuration) error {
 // - Using insert queries from raw sql file
 func PopulateTables() error {
 	dir, err := os.Getwd()
-	buf, err := os.ReadFile(dir + "/app/database/raw/exerciseMuscle.sql")
+	buf, err := os.ReadFile(dir + "/app/database/raw/starter.sql")
 	if err != nil {
 		return err
 	}
