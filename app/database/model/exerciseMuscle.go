@@ -4,5 +4,5 @@ package model
 type ExerciseMuscle struct {
 	ExerciseID uint `gorm:"primaryKey"`
 	MuscleID   uint `gorm:"primaryKey"`
-	ISPRIMARY  bool `gorm:"not null" json:"isPrimary"`
+	IsPRIMARY  bool `gorm:"not null" json:"isPrimary"`
 }

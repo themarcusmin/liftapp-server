@@ -118,6 +118,7 @@ func SetupRouter(configure *gconfig.Configuration) (*gin.Engine, error) {
 			rLogs := v1.Group("logs")
 			rLogs.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())
 			rLogs.POST("", controller.CreateLog) // Protected
+			rLogs.GET("", controller.GetLogs)    // Protected
 
 			// Test JWT
 			// rTestJWT := v1.Group("test-jwt")
