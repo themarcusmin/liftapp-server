@@ -77,3 +77,6 @@ Query Parameters
 
 #### /exercises/recent1rm/:exercise_id
 * `GET` : Get a 1RM from the past 5 logs
+
+## ER Diagram
+![liftApp ER Diagram](img/erd.png)
