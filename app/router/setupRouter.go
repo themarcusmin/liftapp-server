@@ -120,6 +120,11 @@ func SetupRouter(configure *gconfig.Configuration) (*gin.Engine, error) {
 			rLogs.POST("", controller.CreateLog) // Protected
 			rLogs.GET("", controller.GetLogs)    // Protected
 
+			// LogEntry
+			rLogEntries := v1.Group("exercises")
+			rLogEntries.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())
+			rLogEntries.GET("/recent1rm/:exercise_id", controller.GetRecent1RM) // Protected
+
 			// Test JWT
 			// rTestJWT := v1.Group("test-jwt")
 			// rTestJWT.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())

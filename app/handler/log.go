@@ -13,10 +13,29 @@ import (
 	"liftapp/app/database/model"
 )
 
+// Function to round a float32 to two decimal places
+func roundToTwoDecimalPlaces(value float64) float64 {
+	return math.Round(value*100) / 100
+}
+func roundPointerToTwoDecimalPlaces(ptr *float64) *float64 {
+	if ptr == nil {
+		return nil
+	}
+	roundedValue := roundToTwoDecimalPlaces(*ptr)
+	return &roundedValue
+}
+
 // CreateLog handles jobs for controller.CreateLog
 func CreateLog(userIDAuth uint64, log model.Log) (httpResponse gmodel.HTTPResponse, httpStatusCode int) {
 	db := gdatabase.GetDB()
 	logFinal := model.Log{}
+
+	// Sanitise weights to follow 2 decimal precision
+	for i := range log.LogExercise {
+		for j := range log.LogExercise[i].LogEntry {
+			log.LogExercise[i].LogEntry[j].Weight = roundPointerToTwoDecimalPlaces(log.LogExercise[i].LogEntry[j].Weight)
+		}
+	}
 
 	logFinal.UserID = userIDAuth
 	logFinal.EventAt = log.EventAt
@@ -43,7 +62,7 @@ type LogResponse struct {
 	ID            uint            `json:"ID"`
 	EventAt       time.Time       `json:"event_at"`
 	Sets          uint            `json:"sets"`
-	Volume        uint            `json:"volume"`
+	Volume        float64         `json:"volume"`
 	MusclesWorked map[string]uint `json:"musclesWorked"`
 }
 
