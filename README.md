@@ -80,3 +80,10 @@ Query Parameters
 
 ## ER Diagram
 ![liftApp ER Diagram](img/erd.png)
+
+## TODO
+
+```
+- [] Integrate OpenAI plugin to generate fitness program
+- [] API endpoint for generating program
+```
