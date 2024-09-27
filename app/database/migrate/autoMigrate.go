@@ -97,14 +97,14 @@ func PopulateTables() error {
 	dir, err := os.Getwd()
 	buf, err := os.ReadFile(dir + "/app/database/raw/starter.sql")
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to read SQL file: %w", err)
 	}
 
 	sqlString := string(buf)
 	db := gdatabase.GetDB()
 	err = db.Exec(sqlString).Error
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to execute SQL: %w", err)
 	}
 
 	fmt.Println("app-level: tables have been populated successfully!")
