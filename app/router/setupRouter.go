@@ -114,6 +114,11 @@ func SetupRouter(configure *gconfig.Configuration) (*gin.Engine, error) {
 			rUsers.PUT("", controller.UpdateUser)  // Protected
 			// rUsers.PUT("/hobbies", controller.AddHobby) // Protected
 
+			// Exercise
+			rExercises := v1.Group("exercises")
+			rExercises.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())
+			rExercises.GET("", controller.GetExercisesByMuscleGroup) // Protected
+
 			// Log
 			rLogs := v1.Group("logs")
 			rLogs.Use(gmiddleware.JWT()).Use(gservice.JWTBlacklistChecker())
