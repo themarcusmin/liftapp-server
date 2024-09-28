@@ -97,7 +97,7 @@ func CreateProgram(userIDAuth uint64, req model.Program) (httpResponse gmodel.HT
 		return
 	}
 
-	httpResponse.Message = program
+	httpResponse.Message = "Program created successfully"
 	httpStatusCode = http.StatusCreated
 	return
 }
