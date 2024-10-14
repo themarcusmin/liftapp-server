@@ -22,11 +22,13 @@ type ExerciseResponse struct {
 	ExerciseID   uint                  `json:"exerciseId"`
 	ExerciseName string                `json:"exerciseName"`
 	SubExercises []SubExerciseResponse `json:"subExercises,omitempty"`
+	Format       string                `json:"format"`
 }
 
 type SubExerciseResponse struct {
 	ExerciseID   uint   `json:"exerciseId"`
 	ExerciseName string `json:"exerciseName"`
+	Format       string `json:"format"`
 }
 
 /*
@@ -38,7 +40,7 @@ func GetExercisesByMuscleGroup() (httpResponse gmodel.HTTPResponse, httpStatusCo
 
 	muscles := []model.Muscle{}
 
-	if err := db.Preload("Exercise").Find(&muscles).Error; err != nil {
+	if err := db.Preload("Exercise.Format").Find(&muscles).Error; err != nil {
 		httpResponse.Message = "internal server error"
 		httpStatusCode = http.StatusInternalServerError
 		return
@@ -59,7 +61,7 @@ func GetExercisesByMuscleGroup() (httpResponse gmodel.HTTPResponse, httpStatusCo
 				exerciseResponse := &ExerciseResponse{
 					ExerciseID:   exercise.ID,
 					ExerciseName: exercise.DisplayName,
-					// SubExercises: []SubExerciseResponse{}, // Initialize with an empty list
+					Format:       exercise.Format.DisplayName,
 				}
 
 				// Add sub-exercises
@@ -69,6 +71,7 @@ func GetExercisesByMuscleGroup() (httpResponse gmodel.HTTPResponse, httpStatusCo
 						subExerciseResponse := SubExerciseResponse{
 							ExerciseID:   subExercise.ID,
 							ExerciseName: subExercise.DisplayName,
+							Format:       subExercise.Format.DisplayName,
 						}
 						exerciseResponse.SubExercises = append(exerciseResponse.SubExercises, subExerciseResponse)
 					}
