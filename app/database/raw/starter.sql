@@ -16,7 +16,8 @@ INSERT INTO
     muscles (id, display_name)
 VALUES
     (1, 'chest'),
-    (2, 'leg');
+    (2, 'leg'),
+    (3, 'back');
 
 -- EXERCISES
 INSERT INTO
@@ -27,7 +28,7 @@ VALUES
     (2, 'Dumbbell Bench Press', 1, NULL),
     (3, 'Machine Bench Press', 1, NULL),
     (4, 'Cable Chest Fly', 1, NULL),
-    (5, 'Push-up', 2, NULL),
+    (5, 'Push-Up', 2, NULL),
     (6, 'Pec Deck', 1, NULL),
     (7, 'Cable Crossovers', 1, NULL),
     (8, 'Bodyweight Chest Dips', 2, NULL),
@@ -48,9 +49,33 @@ VALUES
     (22, 'Low Cable Crossover', 1, 7),
     -- LEG: parent
     (23, 'Barbell Squat', 1, NULL),
+    (24, 'Leg Extensions', 1, NULL),
+    (25, 'Leg Press', 1, NULL),
+    (26, 'Calf Raises', 1, NULL),
+    (27, 'Lunges', 1, NULL),
+    (28, 'Hip Thrusts', 1, NULL),
+    (29, 'Leg Curls', 1, NULL),
+    (30, 'Glute Kickbacks', 1, NULL),
     -- LEG: child
-    (24, 'Front Squat', 1, 23),
-    (25, 'Goblet Squat', 1, 23);
+    (31, 'Front Squat', 1, 23),
+    (32, 'Goblet Squat', 1, 23),
+    (33, 'Barbell Lunges', 1, 27),
+    (34, 'Dumbbell Lunges', 1, 27),
+    -- BACK: parent
+    (35, 'Bodyweight Pull-Ups', 2, NULL),
+    (36, 'Weighted Pull-Ups', 1, NULL),
+    (37, 'Lat Pull-down', 1, NULL),
+    (38, 'Bent Rows', 1, NULL),
+    (39, 'Seated Rows', 1, NULL),
+    (40, 'One-Arm Dumbbell Row', 1, NULL),
+    (41, 'Dumbbell Pull-Over', 1, NULL),
+    -- BACK: child
+    (42, 'T-Bar Bent Rows', 1, 38),
+    (43, 'Dumbbell Bent Rows', 1, 38),
+    (44, 'Barbell Bent Rows', 1, 38),
+    (45, 'Cable Seated Rows', 1, 39), 
+    (46, 'Machine Seated Rows', 1, 39),
+    (47, 'One-Arm Cable Rows', 1, 39);
 
 INSERT INTO
     exercise_muscles (exercise_id, muscle_id, is_primary)
@@ -80,5 +105,28 @@ VALUES
     (22, 1, 1), -- Low Cable Crossover
     -- LEG
     (23, 2, 1), -- Barbell Squat
-    (24, 2, 1), -- Front Squat
-    (25, 2, 1); -- Goblet Squat
+    (24, 2, 1), -- Leg Extensions
+    (25, 2, 1), -- Leg Press
+    (26, 2, 1), -- Calf Raises
+    (27, 2, 1), -- Lunges
+    (28, 2, 1), -- Hip Thrusts
+    (29, 2, 1), -- Leg Curls
+    (30, 2, 1), -- Glute Kickbacks
+    (31, 2, 1), -- Front Squat
+    (32, 2, 1), -- Goblet Squat
+    (33, 2, 1), -- Barbell Lunges
+    (34, 2, 1), -- Dumbbell Lunges
+    -- BACK
+    (35, 3, 1), -- Bodyweight Pull-Ups
+    (36, 3, 1), -- Weighted Pull-Ups
+    (37, 3, 1), -- Lat Pull-down
+    (38, 3, 1), -- Bent Rows
+    (39, 3, 1), -- Seated Rows
+    (40, 3, 1), -- One-Arm Dumbbell Row
+    (41, 3, 1), -- Dumbbell Pull-Over
+    (42, 3, 1), -- T-Bar Bent Rows
+    (43, 3, 1), -- Dumbbell Bent Rows
+    (44, 3, 1), -- Barbell Bent Rows
+    (45, 3, 1), -- Cable Seated Rows
+    (46, 3, 1), -- Machine Seated Rows
+    (47, 3, 1); -- One-Arm Cable Rows
