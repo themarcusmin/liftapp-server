@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"sort"
 
 	gdatabase "liftapp/database"
 	gmodel "liftapp/database/model"
@@ -19,14 +20,14 @@ type MuscleGroupResponse struct {
 }
 
 type ExerciseResponse struct {
-	ExerciseID   uint                  `json:"exerciseId"`
+	ExerciseID   uint                  `json:"exerciseID"`
 	ExerciseName string                `json:"exerciseName"`
 	SubExercises []SubExerciseResponse `json:"subExercises,omitempty"`
 	Format       string                `json:"format"`
 }
 
 type SubExerciseResponse struct {
-	ExerciseID   uint   `json:"exerciseId"`
+	ExerciseID   uint   `json:"exerciseID"`
 	ExerciseName string `json:"exerciseName"`
 	Format       string `json:"format"`
 }
@@ -40,7 +41,7 @@ func GetExercisesByMuscleGroup() (httpResponse gmodel.HTTPResponse, httpStatusCo
 
 	muscles := []model.Muscle{}
 
-	if err := db.Preload("Exercise.Format").Find(&muscles).Error; err != nil {
+	if err := db.Preload("Exercise.Format").Order("display_name ASC").Find(&muscles).Error; err != nil {
 		httpResponse.Message = "internal server error"
 		httpStatusCode = http.StatusInternalServerError
 		return
@@ -88,6 +89,13 @@ func GetExercisesByMuscleGroup() (httpResponse gmodel.HTTPResponse, httpStatusCo
 		}
 
 		getExercisesResponse.MuscleGroups = append(getExercisesResponse.MuscleGroups, muscleGroupResponse)
+	}
+
+	// Order exercises alphabetically within each muscle group
+	for i := range getExercisesResponse.MuscleGroups {
+		sort.Slice(getExercisesResponse.MuscleGroups[i].Exercises, func(a, b int) bool {
+			return getExercisesResponse.MuscleGroups[i].Exercises[a].ExerciseName < getExercisesResponse.MuscleGroups[i].Exercises[b].ExerciseName
+		})
 	}
 
 	httpResponse.Message = getExercisesResponse
