@@ -11,7 +11,7 @@ import (
 )
 
 type GetExercisesResponse struct {
-	MuscleGroups []MuscleGroupResponse `json:"muscleGroups"`
+	MuscleGroups []MuscleGroupResponse `json:"exercises"`
 }
 
 type MuscleGroupResponse struct {
